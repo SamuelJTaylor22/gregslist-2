@@ -17,7 +17,8 @@ export default class Job {
       <div class="card">
           <div class="card-body">
               <h4 class="card-title">${this.company}- ${this.jobTitle} </h4>
-              <p class="card-text">Rate:$${this.rate.toFixed(2)}/Year</p>
+              <p class="card-text">Rate:$${this.rate.toFixed(2)}/Hour</p>
+              <p class="card-text">${this.hours} Hours</p>
               <p class="card-text">${this.description}</p>
               <div class="d-flex justify-content-between">
                   <button class="btn btn-outline-danger" onclick="app.jobsController.removeJob('${this.id}')">Delete</button>

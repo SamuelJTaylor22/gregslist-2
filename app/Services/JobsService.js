@@ -18,7 +18,7 @@ class JobsService {
     ProxyState.jobs = ProxyState.jobs.filter(c => c.id !== id)
   }
 
-  bid(id) {
+  apply(id) {
     let foundJob = ProxyState.jobs.find(j => j.id == id)
 
     console.log(`You applied for ${foundJob.jobTitle} at ${foundJob.company}!`);

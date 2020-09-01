@@ -1,39 +1,71 @@
 import { ProxyState } from "../AppState.js";
-import carsService from "../Services/CarsService.js";
+import jobsService from "../Services/JobsService.js";
 
 // private
-function _drawCars() {
-  let cars = ProxyState.cars
+function _drawJobs() {
+  let jobs = ProxyState.jobs
   let templates = ''
-  cars.forEach(c => templates += c.Template)
+  jobs.forEach(c => templates += c.Template)
   document.getElementById('data').innerHTML = templates
 }
 
+function _drawForm(){
+  let template = `
+  <div class="col" >
+                <form onsubmit="app.jobsController.createJob()" class="form-inline">
+                    <div class="form-group p-1">
+                        <label class="mr-1" for="company">Company</label>
+                        <input type="text" name="company" id="company" class="form-control" placeholder="Company...">
+                    </div>
+                    <div class="form-group p-1">
+                        <label class="mr-1" for="jobTitle">Job Title</label>
+                        <input type="text" name="jobTitle" id="jobTitle" class="form-control" placeholder="Job Title...">
+                    </div>
+                    <div class="form-group p-1">
+                        <label class="mr-1" for="rate">Pay</label>
+                        <input type="number" name="rate" id="rate" class="form-control" placeholder="Pay..." min="1900"
+                            max="2021">
+                    </div>
+                    <div class="form-group p-1">
+                        <label class="mr-1" for="hours">Hours</label>
+                        <input type="number" name="hours" id="hours" class="form-control" placeholder="Hours...">
+                    </div>
+                    <div class="form-group p-1">
+                        <label class="mr-1" for="description">Description</label>
+                        <input type="text" name="description" id="description" class="form-control"
+                            placeholder="Description...">
+                    </div>
+                    <button type="submit" class="btn btn-outline-success">Add Job</button>
+                </form>
+            </div>
+  `
+document.getElementById('form').innerHTML = template
+}
 
 //Public
-export default class CarsController {
+export default class JobsController {
   constructor() {
     // NOTE Add all Listeners   
-    ProxyState.on('cars', _drawCars)
+    ProxyState.on('jobs', _drawJobs)
 
     // NOTE Get all appropriate data
-    this.getCars();
+    this.getJobs();
   }
 
   // NOTE this allows to fetch manually if needed
-  getCars() {
+  getJobs() {
     try {
-      carsService.getCars();
+      jobsService.getJobs();
     } catch (error) {
       console.error(error)
     }
   }
 
 
-  createCar() {
+  createJob() {
     event.preventDefault();
     let form = event.target
-    let rawCar = {
+    let rawJob = {
       // @ts-ignore
       make: form.make.value,
       // @ts-ignore
@@ -48,27 +80,31 @@ export default class CarsController {
       imgUrl: form.img.value
     }
     try {
-      carsService.createCar(rawCar)
+      jobsService.createJob(rawJob)
     } catch (error) {
       console.error(error)
     }
   }
 
-  removeCar(id) {
+  removeJob(id) {
     try {
-      carsService.removeCar(id)
+      jobsService.removeJob(id)
     } catch (error) {
       console.error(error)
     }
   }
 
-  bid(id) {
+  apply(id) {
     try {
-      carsService.bid(id)
+      jobsService.apply(id)
     } catch (error) {
       console.error(error)
     }
   }
 
+  drawPage(){
+    _drawJobs()
+    _drawForm()
+  }
 
 }
