@@ -10,47 +10,34 @@
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-dark navbar-expand bg-dark text-light">
-            <a class="navbar-brand" href="#">
-                <img src="assets/img/logo.png" width="45" height="45" alt="" loading="lazy">
-                <span class="ml-2">gregslist2</span>
-            </a>
-        </nav>
+    <header class="container-fluid bg-primary">
+        <div class="row m-3" id="">
+            <div class="col text-light">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                    <a class="navbar-brand text-shadow" href="#">Gregslist</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                      <ul class="navbar-nav">
+                        <li class="nav-item">
+                          <a class="nav-link" id="cars" onclick="app.carsController.drawPage()" >Cars</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="homes" onclick="app.housesController.drawPage()" >Homes</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="jobs" href="#" onclick="app.jobsController.drawPage()" >Jobs</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </nav>
+            </div>
+        </div>
     </header>
     <main class="container-fluid">
-        <div class="row my-3">
-            <div class="col" id="form">
-                <form onsubmit="app.carsController.createCar()" class="form-inline">
-                    <div class="form-group p-1">
-                        <label class="mr-1" for="make">Make</label>
-                        <input type="text" name="make" id="make" class="form-control" placeholder="Make...">
-                    </div>
-                    <div class="form-group p-1">
-                        <label class="mr-1" for="model">Model</label>
-                        <input type="text" name="model" id="model" class="form-control" placeholder="Model...">
-                    </div>
-                    <div class="form-group p-1">
-                        <label class="mr-1" for="year">Year</label>
-                        <input type="number" name="year" id="year" class="form-control" placeholder="Year..." min="1900"
-                            max="2021">
-                    </div>
-                    <div class="form-group p-1">
-                        <label class="mr-1" for="price">Price</label>
-                        <input type="number" name="price" id="price" class="form-control" placeholder="Price...">
-                    </div>
-                    <div class="form-group p-1">
-                        <label class="mr-1" for="description">Description</label>
-                        <input type="text" name="description" id="description" class="form-control"
-                            placeholder="Description...">
-                    </div>
-                    <div class="form-group p-1">
-                        <label class="mr-1" for="img">Image Url</label>
-                        <input type="url" name="img" id="img" class="form-control" placeholder="Image Url...">
-                    </div>
-                    <button type="submit" class="btn btn-outline-success">Add Car</button>
-                </form>
-            </div>
+        <div class="row my-3" id="form">
+            
         </div>
         <div class="row" id="data">
         </div>

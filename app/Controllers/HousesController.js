@@ -1,29 +1,33 @@
 import { ProxyState } from "../AppState.js";
-import carsService from "../Services/CarsService.js";
+import housesService from "../Services/HousesService.js";
 
 // private
-function _drawCars() {
-  let cars = ProxyState.cars
+function _drawHouses() {
+  let houses = ProxyState.houses
   let templates = ''
-  cars.forEach(c => templates += c.Template)
+  houses.forEach(c => templates += c.Template)
   document.getElementById('data').innerHTML = templates
 }
 
 function _drawForm(){
   let template = `
   <div class="col" >
-                <form onsubmit="app.carsController.createCar()" class="form-inline">
+                <form onsubmit="app.housesController.createHouse()" class="form-inline">
                     <div class="form-group p-1">
-                        <label class="mr-1" for="make">Make</label>
-                        <input type="text" name="make" id="make" class="form-control" placeholder="Make...">
+                        <label class="mr-1" for="bedrooms">Bedrooms</label>
+                        <input type="text" name="bedrooms" id="bedrooms" class="form-control" placeholder="Bedrooms...">
                     </div>
                     <div class="form-group p-1">
-                        <label class="mr-1" for="model">Model</label>
-                        <input type="text" name="model" id="model" class="form-control" placeholder="Model...">
+                        <label class="mr-1" for="bathrooms">Bathrooms</label>
+                        <input type="text" name="bathrooms" id="bathrooms" class="form-control" placeholder="Bathrooms...">
+                    </div>
+                    <div class="form-group p-1">
+                        <label class="mr-1" for="levels">Floors</label>
+                        <input type="number" name="levels" id="levels" class="form-control" placeholder="Floors...">
                     </div>
                     <div class="form-group p-1">
                         <label class="mr-1" for="year">Year</label>
-                        <input type="number" name="year" id="year" class="form-control" placeholder="Year..." min="1900"
+                        <input type="number" name="year" id="year" class="form-control" placeholder="Year..." min="1400"
                             max="2021">
                     </div>
                     <div class="form-group p-1">
@@ -39,62 +43,62 @@ function _drawForm(){
                         <label class="mr-1" for="img">Image Url</label>
                         <input type="url" name="img" id="img" class="form-control" placeholder="Image Url...">
                     </div>
-                    <button type="submit" class="btn btn-outline-success">Add Car</button>
+                    <button type="submit" class="btn btn-outline-success">Add House</button>
                 </form>
             </div>
   `
 document.getElementById('form').innerHTML = template
 }
 
-
 //Public
-export default class CarsController {
+export default class HousesController {
   constructor() {
     // NOTE Add all Listeners   
-    ProxyState.on('cars', _drawCars)
+    ProxyState.on('houses', _drawHouses)
 
     // NOTE Get all appropriate data
-    this.getCars();
-    _drawForm()
+    this.getHouses();
   }
 
   // NOTE this allows to fetch manually if needed
-  getCars() {
+  getHouses() {
     try {
-      carsService.getCars();
+      housesService.getHouses();
     } catch (error) {
       console.error(error)
     }
   }
 
 
-  createCar() {
+  createHouse() {
     event.preventDefault();
     let form = event.target
-    let rawCar = {
+    let rawHouse = {
       // @ts-ignore
-      make: form.make.value,
+      make: form.bedrooms.value,
       // @ts-ignore
-      model: form.model.value,
+      model: form.bathrooms.value,
       // @ts-ignore
       year: form.year.value,
       // @ts-ignore
       price: parseInt(form.price.value),
+      // @ts-ignore
+      levels: parseInt(form.levels.value),
       // @ts-ignore
       description: form.description.value,
       // @ts-ignore
       imgUrl: form.img.value
     }
     try {
-      carsService.createCar(rawCar)
+      housesService.createHouse(rawHouse)
     } catch (error) {
       console.error(error)
     }
   }
 
-  removeCar(id) {
+  removeHouse(id) {
     try {
-      carsService.removeCar(id)
+      housesService.removeHouse(id)
     } catch (error) {
       console.error(error)
     }
@@ -102,14 +106,16 @@ export default class CarsController {
 
   bid(id) {
     try {
-      carsService.bid(id)
+      housesService.bid(id)
     } catch (error) {
       console.error(error)
     }
   }
+
   drawPage(){
     _drawForm()
-    _drawCars()
+    _drawHouses()
   }
+
 
 }
